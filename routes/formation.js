@@ -1,7 +1,7 @@
 import express from 'express';
 import auth from '../middleware/auth.js';
 import getFormationsController from '../controllers/formations/getFormationsController.js';
-import dataValidator from '../middleware/dataValidator.js';
+import formationValidator from '../middleware/formationValidator.js';
 import addFormationsController from '../controllers/formations/addFormationsController.js';
 import patchFormationsController from '../controllers/formations/patchFormationsController.js';
 import deleteFormationsController from '../controllers/formations/deleteFormationController.js';
@@ -23,14 +23,14 @@ formationRoutes.get('/:id', getFormationsController.getFormationById);
 
 // Routes POST
 
-formationRoutes.post('/add', [auth, dataValidator], addFormationsController.addFormation);
+formationRoutes.post('/add', [auth, formationValidator], addFormationsController.addFormation);
 
 // Routes DELETE
 
-formationRoutes.delete('/:id', [auth, dataValidator], deleteFormationsController.deleteFormation);
+formationRoutes.delete('/:id', [auth, formationValidator], deleteFormationsController.deleteFormation);
 
 //Routes patch
 
-formationRoutes.patch('/patch/:id', [auth, dataValidator], patchFormationsController.patchFormation);
+formationRoutes.patch('/patch/:id', [auth, formationValidator], patchFormationsController.patchFormation);
 
 export default formationRoutes;

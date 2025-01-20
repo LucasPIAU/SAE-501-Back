@@ -1,8 +1,6 @@
-import { ObjectId } from "mongodb";
-
 export default (req, res, next) => {
     const method = req.method;
-    const allowedKeys = ['name', 'description', 'type', 'etablissement', 'data', 'link', 'addresse', 'Latitude', 'Longitude', 'tel', 'images'];
+    const allowedKeys = ['name', 'description', 'type', 'etablissement', 'data', 'link', 'images'];
 
     const unexpectedKeys = Object.keys(req.body).filter(key => !allowedKeys.includes(key));
     if (unexpectedKeys.length > 0) {
@@ -25,7 +23,7 @@ export default (req, res, next) => {
         }
     } else if (method === "PATCH") {
         if ("name" in req.body && (typeof name !== 'string' || name.trim() === '')) {
-            return res.status(400).json({ message: 'Le champ "name" est obligatoire et doit être une chaîne valide.' });
+            return res.status(400).json({ message: 'Le champ "name" doit être une chaîne valide.' });
         }
 
         if ("type" in req.body && (typeof type !== 'string' || !['pro', 'techno', 'opt-seconde', 'opt-generale'].includes(type))) {
@@ -33,8 +31,9 @@ export default (req, res, next) => {
         }
 
         if ("description" in req.body && (typeof description !== 'string' || description.trim() === '')) {
-            return res.status(400).json({ message: 'Le champ "description" est obligatoire et doit être une chaîne valide.' });
+            return res.status(400).json({ message: 'Le champ "description" doit être une chaîne valide.' });
         }
+        
     } else if (method == "DELETE") {
         if (!"id" in req.params || typeof req.params.id !== 'string' || req.params.id.trim() === "") {
             return res.status(400).json({ message: "L'id est obligatoire et doit être une chaîne valide." })
