@@ -1,7 +1,9 @@
 import express from 'express';
-import connectToDB from '../functions/connectDb.js';
 import auth from '../middleware/auth.js';
-import { ObjectId } from 'mongodb';
+import getFormationsController from '../controllers/getFormationsController.js';
+import dataValidator from '../middleware/dataValidator.js';
+import addFormationsController from '../controllers/addFormationsController.js';
+import patchFormationsController from '../controllers/patchFormationsController.js';
 
 const formationRoutes = express();
 
@@ -16,47 +18,17 @@ const formationRoutes = express();
 }
 
 // Routes GET
+formationRoutes.get('/all', getFormationsController.getAllFormations);
 
-formationRoutes.get('/:id', async (req, res) => {
-    const { id } = req.params;
-    try {
-        // On se connect à la base de donnée et on récupère la collection formations
-        const db = await connectToDB();
-        const collectionFormations = db.collection('Formations');
+formationRoutes.get('/pro', getFormationsController.getProFormations);
 
-        // On fait la requêtes pour récupérer la formation qui correspond à l'id passer en paramètre
-        if (id) {
-            const query = { '_id': new ObjectId(id) };
-            console.log(query);
-            const formation = await collectionFormations.findOne(query);
-            if (formation) res.status(200).json(formation);
-            else res.status(404).json({ message: "Aucune formation trouvé pour cet id" });
-        } else throw "L'id de la formations est obligatoire";
-    } catch (err) {
-        res.status(500).json({ message: `Une erreur interne est survenue dans la récupération d'une formation : ${err}` });
-    }
-});
+formationRoutes.get('/techno', getFormationsController.getTechnoFormations);
 
-formationRoutes.get('', async (req, res) => {
-    try {
-        // On se connect à la base de donnée et on récupère la collection formation
-        const db = await connectToDB();
-        const collectionFormations = db.collection('Formations');
+formationRoutes.get('/opt/seconde', getFormationsController.getOptSeconde);
 
-        // On fait la requête pour récupérer la liste de toute les formations
-        const cursor = collectionFormations.find();
-        const formations = await cursor.toArray();
+formationRoutes.get('/opt/generale', getFormationsController.getOptGenerale);
 
-        // Ensuite on calcule le nombre de page en sachant qu'il y a maximum 20 élément par page
-        if (formations.length > 0) {
-            const nbrPage = Math.ceil(formations.length / 20); // On arrondie à l'entier superieur pour avoir le nbr de page
-            const formationsSlice = formations.slice(0, 20); // On ne garde les 20 éléments correspondant à la page
-        } else res.status(404).json({ message: "Aucune formations trouvée" });
-
-    } catch (err) {
-        res.status(500).json({ message: `Une erreur interne est survenue dans la récupération des formations : ${err}` });
-    }
-});
+formationRoutes.get('/:id', getFormationsController.getFormationById);
 
 // Routes PUT
 
@@ -72,14 +44,7 @@ formationRoutes.put('/:id', [auth], async (req, res) => {
 
 // Routes POST
 
-formationRoutes.post('/add', [auth], async (req, res) => {
-    try {
-        // Création de la formation avec les données
-        res.status(200).json('OK');
-    } catch (err) {
-        res.status(500).json({ message: `Une erreur est survenue pendant la création d'une formation : ${err}` });
-    }
-});
+formationRoutes.post('/add', [auth, dataValidator],addFormationsController.addFormation); 
 
 // Routes DELETE
 
@@ -92,5 +57,7 @@ formationRoutes.delete('/:id', [auth], async (req, res) => {
         res.status(500).json({ message: `Une erreur est survenue pendant la suppression d'une formation : ${err}` });
     }
 });
+//Routes patch
 
+formationRoutes.patch('/patch/:id', [auth, dataValidator], patchFormationsController.patchFormation);
 export default formationRoutes;
