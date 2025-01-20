@@ -1,4 +1,4 @@
-import connectToDB from '../functions/connectDb.js';
+import connectToDB from '../../functions/connectDb.js';
 
 const addFormationsController = {
     addFormation: async (req, res) => {

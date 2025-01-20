@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import connectToDB from '../functions/connectDb.js';
+import connectToDB from '../../functions/connectDb.js';
 
 const getFormationsController = {
     getFormationById: async (req, res) => {
@@ -74,7 +74,7 @@ const getFormationsController = {
     
             if (formations.length > 0) {
                 return res.status(200).json(formations);
-            } else return res.status(404).json({ message: "Aucune formations trouvée" });
+            } else return res.status(404).json({ message: "Aucune formation trouvée" });
     
         } catch (err) {
             return res.status(500).json({ message: `Une erreur interne est survenue dans la récupération des formations : ${err}` });

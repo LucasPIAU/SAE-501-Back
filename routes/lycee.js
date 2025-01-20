@@ -1,5 +1,6 @@
 import express from 'express';
 import auth from '../middleware/auth.js';
+import getEtablissementController from '../controllers/etablissements/getEtablissementController.js';
 
 const lyceeRoutes = express();
 
@@ -15,14 +16,7 @@ lyceeRoutes.get('/:id', async (req, res) => {
     }
 });
 
-lyceeRoutes.get('', async (req, res) => {
-    try {
-        // Récupération de la liste de tout les lycées
-        res.status(200).json('OK');
-    } catch (err) {
-        res.status(500).json({ message: `Une erreur interne est survenue dans la récupération des lycées : ${err}` });
-    }
-});
+lyceeRoutes.get('/',getEtablissementController.getLycee);
 
 // Routes PUT
 

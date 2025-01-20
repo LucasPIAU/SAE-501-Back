@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import connectToDB from '../functions/connectDb.js';
+import connectToDB from '../../functions/connectDb.js';
 
 const patchFormationsController = {
     patchFormation: async (req, res) => {
