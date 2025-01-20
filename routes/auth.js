@@ -42,7 +42,7 @@ authRoutes.post("/", async (req, res) => {
         const token = jwt.sign(
             { id: user.id, roles: user.roles },
             process.env.JWT_PRIVATE_KEY || "jwtPrivateKey",
-            { expiresIn: "30m" }
+            { expiresIn: "2h" }
         );
         res.send({
             ok: true,
