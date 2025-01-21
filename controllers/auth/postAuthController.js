@@ -37,7 +37,7 @@ const postAuthController = {
 
         try {
             const token = jwt.sign(
-                { id: user.id, roles: user.roles },
+                { id: user.id },
                 process.env.JWT_PRIVATE_KEY || "jwtPrivateKey",
                 { expiresIn: "2h" }
             );
@@ -49,6 +49,29 @@ const postAuthController = {
             res.status(500).send({
                 ok: false,
                 message: "Failed to generate token"
+            });
+        }
+    },
+    reAuth: async (req, res) => {
+        const token = req.header("x-auth-token");
+        if (!token) return res.status(401).send({
+            ok: false,
+            error: "Access denied. No token provided"
+        });
+
+        try {
+            const decoded = jwt.verify(token, process.env.JWT_PRIVATE_KEY || "jwtPrivateKey");
+
+            const newToken = jwt.sign(
+                { id: decoded.id },
+                process.env.JWT_PRIVATE_KEY || "jwtPrivateKey",
+                { expiresIn: '2h' }
+            );
+            res.status(200).json({token : newToken});
+        } catch (error) {
+            return res.status(401).send({
+                ok: false,
+                error: "Le Token est expiré, veuillez vous reconnecter."
             });
         }
     }

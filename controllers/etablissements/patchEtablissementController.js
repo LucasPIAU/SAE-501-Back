@@ -1,4 +1,5 @@
-import connectToDB from "../../functions/connectDb";
+import connectToDB from "../../functions/connectDb.js";
+import { ObjectId } from "mongodb";
 
 const patchEtablissementController = {
     patchLycee: async (req, res)=>{

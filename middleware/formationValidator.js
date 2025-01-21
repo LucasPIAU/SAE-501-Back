@@ -34,10 +34,6 @@ export default (req, res, next) => {
             return res.status(400).json({ message: 'Le champ "description" doit être une chaîne valide.' });
         }
         
-    } else if (method == "DELETE") {
-        if (!"id" in req.params || typeof req.params.id !== 'string' || req.params.id.trim() === "") {
-            return res.status(400).json({ message: "L'id est obligatoire et doit être une chaîne valide." })
-        }
     }
     next();
 };
