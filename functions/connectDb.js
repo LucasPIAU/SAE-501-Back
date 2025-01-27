@@ -1,7 +1,7 @@
 import { MongoClient } from "mongodb";
 
 // URI de connexion à MongoDB
-const uri = "mongodb://127.0.0.1:27017/";
+const uri = "mongodb:admin:admin123@db:27017";
 
 // Nom de la base de données
 const dbName = "DataLyceeMayenne";
