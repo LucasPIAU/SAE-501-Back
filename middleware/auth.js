@@ -11,7 +11,14 @@ export default (req, res, next) => {
     });
 
     try {
-        jwt.verify(token, process.env.JWT_PRIVATE_KEY || "jwtPrivateKey");
+        const decoded = jwt.verify(token, process.env.JWT_PRIVATE_KEY || "jwtPrivateKey");
+
+        const newToken = jwt.sign(
+            { id: decoded.id },
+            process.env.JWT_PRIVATE_KEY || "jwtPrivateKey",
+            { expiresIn: '2h' } 
+        );
+        res.setHeader('x-auth-token', newToken);
         next();
     } catch (error) {
         return res.status(401).send({
