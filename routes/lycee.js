@@ -20,7 +20,7 @@ lyceeRoutes.get('', async (req, res) => {
     try {
         // On se connect à la base de donnée et on récupère la collection établissements
         const db = await connectToDB();
-        const collectionEtablissements = db.collection('Etablissements');
+        const collectionEtablissements = db.collection('etablissements');
 
         // On fait la requête pour récupérer la liste de toute les établissements
         const cursor = collectionEtablissements.find();
@@ -38,7 +38,6 @@ lyceeRoutes.get('', async (req, res) => {
 });
 
 // Routes PUT
-
 lyceeRoutes.put('/:id', [auth], async (req, res) => {
     const { id } = req.params;
     try {
