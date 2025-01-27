@@ -102,6 +102,10 @@ formationRoutes.get('/opt/generale', async (req, res) => {
         if (formations.length > 0) {
             res.status(200).json(formations);
         } else res.status(404).json({ message: "Aucune formations trouvée" });
+    }  catch (err) {
+        res.status(500).json({ message: `Une erreur interne est survenue dans la récupération d'une formation : ${err}` });
+    }
+    })
 
 formationRoutes.get('/:id', async (req, res) => {
     const { id } = req.params;
