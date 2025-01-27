@@ -1,22 +1,14 @@
 import express from 'express';
-import connectToDB from '../functions/connectDb.js';
 import auth from '../middleware/auth.js';
-import { ObjectId } from 'mongodb';
+import getFormationsController from '../controllers/formations/getFormationsController.js';
+import formationValidator from '../middleware/formationValidator.js';
+import postFormationsController from '../controllers/formations/postFormationsController.js';
+import patchFormationsController from '../controllers/formations/patchFormationsController.js';
+import deleteFormationsController from '../controllers/formations/deleteFormationController.js';
 
 const formationRoutes = express();
 
-// Exemple de format JSON d'une formation dans la base de donnée
-{
-    id: "String"
-    name: "String"
-    filière: "String" // Générale et technologique ou professionel
-    data: "Array<Object>" // Le format de la data dépend de la filière
-    etablissement: "Array<String>" // List d'ids des établissement
-    flyerLink: "String" // Id du flyer correspondant
-}
-
 // Routes GET
-
 
 formationRoutes.get('/all', async (req, res) => {
     try {
@@ -111,12 +103,6 @@ formationRoutes.get('/opt/generale', async (req, res) => {
             res.status(200).json(formations);
         } else res.status(404).json({ message: "Aucune formations trouvée" });
 
-    } catch (err) {
-        res.status(500).json({ message: `Une erreur interne est survenue dans la récupération des formations : ${err}` });
-    }
-});
-
-
 formationRoutes.get('/:id', async (req, res) => {
     const { id } = req.params;
     try {
@@ -136,39 +122,17 @@ formationRoutes.get('/:id', async (req, res) => {
         res.status(500).json({ message: `Une erreur interne est survenue dans la récupération d'une formation : ${err}` });
     }
 });
-// Routes PUT
-
-formationRoutes.put('/:id', [auth], async (req, res) => {
-    const { id } = req.params;
-    try {
-        // Modification de la formation avec les nouvelles données
-        res.status(200).json('OK');
-    } catch (err) {
-        res.status(500).json({ message: `Une erreur est survenue pendant la modification d'une formation : ${err}` });
-    }
-});
 
 // Routes POST
 
-formationRoutes.post('/add', [auth], async (req, res) => {
-    try {
-        // Création de la formation avec les données
-        res.status(200).json('OK');
-    } catch (err) {
-        res.status(500).json({ message: `Une erreur est survenue pendant la création d'une formation : ${err}` });
-    }
-});
+formationRoutes.post('/add', [auth, formationValidator], postFormationsController.addFormation);
 
 // Routes DELETE
 
-formationRoutes.delete('/:id', [auth], async (req, res) => {
-    const { id } = req.params;
-    try {
-        // Suppression de la formation avec les nouvelles données
-        res.status(200).json('OK');
-    } catch (err) {
-        res.status(500).json({ message: `Une erreur est survenue pendant la suppression d'une formation : ${err}` });
-    }
-});
+formationRoutes.delete('/:id', [auth], deleteFormationsController.deleteFormation);
+
+//Routes patch
+
+formationRoutes.patch('/edit/:id', [auth, formationValidator], patchFormationsController.patchFormation);
 
 export default formationRoutes;
