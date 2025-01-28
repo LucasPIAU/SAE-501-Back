@@ -1,7 +1,10 @@
 import { MongoClient } from "mongodb";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 // URI de connexion à MongoDB
-const uri = "mongodb://admin:admin123@db:27017";
+const uri = process.env.DB_ADRESS;
 
 // Nom de la base de données
 const dbName = "DataLyceeMayenne";
