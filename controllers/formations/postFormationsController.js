@@ -9,8 +9,8 @@ const addFormationsController = {
       const { type } = req.body;
 
       const collectionNames = {
-        pro: "formationsPro",
-        techno: "formationsTechno",
+        "pro": "formationsPro",
+        "techno": "formationsTechno",
         "opt-seconde": "options-seconde",
         "opt-generale": "options-generale",
       };
