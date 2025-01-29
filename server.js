@@ -7,8 +7,15 @@ import authRoutes from './routes/auth.js';
 const app = express();
 
 // Utilisation de cors pour permettre les requêtes Cross-Origin
-app.use(cors());
-app.use(express.json()); 
+
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'x-auth-token'],
+    exposedHeaders: ['x-auth-token'],
+};
+app.use(cors(corsOptions));
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/lycee', lyceeRoutes);

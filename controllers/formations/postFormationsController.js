@@ -50,4 +50,5 @@ const addFormationsController = {
   },
 };
 
+
 export default addFormationsController;
