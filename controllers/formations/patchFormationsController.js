@@ -26,14 +26,15 @@ const patchFormationsController = {
 
             for (let collectionName of collectionNames) {
                 const collection = await db.collection(collectionName);
-                const resultFind = await collection.findOne({ _id: new ObjectId(id) });
+                const resultFind = await collection.findOne({ _id: ObjectId.createFromHexString(id) });
 
                 if (resultFind) {
                     const result = await collection.updateOne(
-                        { _id: new ObjectId(id) },
+                        { _id: ObjectId.createFromHexString(id) },
                         { $set: updateFields }
                     );
-                    return res.status(200).json({ message: "Formation mise à jour avec succès." });
+                    updateFields._id = ObjectId.createFromHexString(id);
+                    return res.status(200).json({ message: "Formation mise à jour avec succès.", data:updateFields });
                 }
             }
             return res.status(404).json({ message: "Aucune formation trouvée pour cet id" });
