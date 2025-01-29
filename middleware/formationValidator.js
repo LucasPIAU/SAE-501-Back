@@ -34,10 +34,16 @@ export default (req, res, next) => {
         if ("type" in req.body && (typeof type !== 'string' || !['pro', 'techno', 'opt-seconde', 'generale'].includes(type))) {
             return res.status(400).json({ message: 'Le champ "type" doit être l\'une des valeurs suivantes : "pro", "techno", "opt-seconde", "generale".' });
         }
-
-        if ("description" in req.body && (typeof description !== 'string' || description.trim() === '')) {
-            return res.status(400).json({ message: 'Le champ "description" doit être une chaîne valide.' });
+        if (type === "generale") {
+            if ("link" in req.body && (typeof link !== 'string' || link.trim() === '')) {
+                return res.status(400).json({ message: 'Le champ "link" doit être une chaîne valide.' });
+            }
+        } else {
+            if ("description" in req.body && (typeof description !== 'string' || description.trim() === '')) {
+                return res.status(400).json({ message: 'Le champ "description" doit être une chaîne valide.' });
+            }
         }
+
 
     }
     next();
