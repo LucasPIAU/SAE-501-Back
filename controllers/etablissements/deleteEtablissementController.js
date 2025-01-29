@@ -18,12 +18,12 @@ const deleteEtablissementController = {
 
             if (result) {
                 collection.deleteOne({ _id: new ObjectId(id) });
-                res.status(204).send();
+                return res.status(204).send();
             } else {
-                res.status(404).json({ message: "Aucun établissement ne correspond à cet Id" });
+                return res.status(404).json({ message: "Aucun établissement ne correspond à cet Id" });
             }
         } catch (err) {
-            res.status(500).json({ message: `Le serveur à renvoyé l'erreur suivante : ${err}` })
+            return res.status(500).json({ message: `Le serveur à renvoyé l'erreur suivante : ${err}` })
         }
 
     }

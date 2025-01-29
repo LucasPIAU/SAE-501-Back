@@ -7,10 +7,13 @@ const postEtablissementController = {
 
             const collection = await db.collection("etablissements");
 
-            const result = await collection.insertOne(req.body);
+            const data = req.body
+
+            const result = await collection.insertOne(data);
 
             if (result.acknowledged) {
-                return res.status(201).json({ message: 'Etablissement ajouté avec succès', id: result.insertedId });
+                data._id = result.insertedId;
+                return res.status(201).json({ message: 'Etablissement ajouté avec succès', data: data });
             } else {
                 return res.status(500).json({ message: 'Erreur lors de l\'ajout de la formation' });
             }

@@ -16,15 +16,15 @@ const patchEtablissementController = {
             const collection = db.collection("etablissements");
 
             const result = await collection.updateOne(
-                { _id: new ObjectId(id) },
+                { _id: ObjectId.createFromHexString(id) },
                 { $set: updateFields }
             );
 
             if (result.matchedCount === 0) {
                 return res.status(404).json({ message: "Etablissement non trouvée." });
             }
-
-            return res.status(200).json({ message: "Etablissement mis à jour avec succès." });
+            updateFields._id = id;
+            return res.status(200).json({ message: "Etablissement mis à jour avec succès.", data:updateFields });
 
         } catch (error) {
             return res.status(500).json({ message: "Erreur du serveur : " + error.message });

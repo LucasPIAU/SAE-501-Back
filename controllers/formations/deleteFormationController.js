@@ -28,9 +28,9 @@ const deleteFormationsController = {
                     return res.status(204).send();
                 }
             }
-            res.status(404).json({ message: "Aucune formation ne correspond à cet Id" });
+            return res.status(404).json({ message: "Aucune formation ne correspond à cet Id" });
         } catch (err) {
-            res.status(500).json({message: `Le serveur à renvoyé l'erreur suivante : ${err}`})
+            return res.status(500).json({message: `Le serveur à renvoyé l'erreur suivante : ${err}`})
         }
 
     }
