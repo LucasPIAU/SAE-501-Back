@@ -12,7 +12,7 @@ const addFormationsController = {
         "pro": "formationsPro",
         "techno": "formationsTechno",
         "opt-seconde": "options-seconde",
-        "opt-generale": "options-generale",
+        "generale": "options-generale",
       };
 
       if (!Object.keys(collectionNames).includes(type)) {
