@@ -5,6 +5,10 @@ import formationValidator from '../middleware/formationValidator.js';
 import postFormationsController from '../controllers/formations/postFormationsController.js';
 import patchFormationsController from '../controllers/formations/patchFormationsController.js';
 import deleteFormationsController from '../controllers/formations/deleteFormationController.js';
+import postContentFormation from '../controllers/formations/postContentFormation.js';
+import deleteContentFormation from '../controllers/formations/deleteContentFormation.js';
+import putContentFormation from '../controllers/formations/putContentFormation.js';
+import putContentOrderFormation from '../controllers/formations/putContentOrderFormation.js';
 
 const formationRoutes = express();
 
@@ -32,5 +36,21 @@ formationRoutes.delete('/:id', [auth], deleteFormationsController.deleteFormatio
 //Routes patch
 
 formationRoutes.patch('/edit/:id', [auth, formationValidator], patchFormationsController.patchFormation);
+
+//Routes post create un content d'une formation
+
+formationRoutes.post('/add/:id/content', [auth], postContentFormation.postContentFormation);
+
+//Routes put edit d'un content d'une formation
+
+formationRoutes.put('/edit/:id/content', [auth], putContentFormation.putContentFormation);
+
+//Route delete d'un content d'une formation
+
+formationRoutes.delete('/delete/:id/content', [auth], deleteContentFormation.deleteContent);
+
+//Routes put edit d'un content d'une formation
+
+formationRoutes.put('/edit/:id/contentOrder', [auth], putContentOrderFormation.putContentOrderFormation);
 
 export default formationRoutes;
