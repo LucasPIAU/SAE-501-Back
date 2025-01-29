@@ -35,8 +35,7 @@ const addFormationsController = {
           .status(201)
           .json({
             message: "Formation ajoutée avec succès",
-            id: result.insertedId,
-            data: req.body,
+            data: data,
           });
       } else {
         return res

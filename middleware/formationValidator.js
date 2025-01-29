@@ -15,7 +15,7 @@ export default (req, res, next) => {
         }
 
         if (typeof type !== 'string' || !['pro', 'techno', 'opt-seconde', 'opt-generale'].includes(type)) {
-            return res.status(400).json({ message: 'Le champ "type" doit être l\'une des valeurs suivantes : "pro", "techno", "opt-seconde", "opt-generale".' });
+            return res.status(400).json({ message: 'Le champ "type" doit être l\'une des valeurs suivantes : "pro", "techno", "opt-seconde", "generale".' });
         }
 
         if (typeof description !== 'string' || description.trim() === '') {
