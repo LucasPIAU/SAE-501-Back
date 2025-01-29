@@ -14,7 +14,7 @@ export default (req, res, next) => {
             return res.status(400).json({ message: 'Le champ "name" est obligatoire et doit être une chaîne valide.' });
         }
 
-        if (typeof type !== 'string' || !['pro', 'techno', 'opt-seconde', 'opt-generale'].includes(type)) {
+        if (typeof type !== 'string' || !['pro', 'techno', 'opt-seconde', 'generale'].includes(type)) {
             return res.status(400).json({ message: 'Le champ "type" doit être l\'une des valeurs suivantes : "pro", "techno", "opt-seconde", "generale".' });
         }
 
@@ -26,8 +26,8 @@ export default (req, res, next) => {
             return res.status(400).json({ message: 'Le champ "name" doit être une chaîne valide.' });
         }
 
-        if ("type" in req.body && (typeof type !== 'string' || !['pro', 'techno', 'opt-seconde', 'opt-generale'].includes(type))) {
-            return res.status(400).json({ message: 'Le champ "type" doit être l\'une des valeurs suivantes : "pro", "techno", "opt-seconde", "opt-generale".' });
+        if ("type" in req.body && (typeof type !== 'string' || !['pro', 'techno', 'opt-seconde', 'generale'].includes(type))) {
+            return res.status(400).json({ message: 'Le champ "type" doit être l\'une des valeurs suivantes : "pro", "techno", "opt-seconde", "generale".' });
         }
 
         if ("description" in req.body && (typeof description !== 'string' || description.trim() === '')) {
