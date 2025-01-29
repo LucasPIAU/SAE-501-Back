@@ -7,7 +7,7 @@ import patchFormationsController from '../controllers/formations/patchFormations
 import deleteFormationsController from '../controllers/formations/deleteFormationController.js';
 import postContentFormation from '../controllers/formations/postContentFormation.js';
 import deleteContentFormation from '../controllers/formations/deleteContentFormation.js';
-import putContentFormation from '../controllers/formations/putFormationController.js';
+import putContentFormation from '../controllers/formations/putContentFormation.js';
 import putContentOrderFormation from '../controllers/formations/putContentOrderFormation.js';
 
 const formationRoutes = express();
@@ -51,6 +51,6 @@ formationRoutes.delete('/delete/:id/content', [auth], deleteContentFormation.del
 
 //Routes put edit d'un content d'une formation
 
-formationRoutes.put('/edit/:id/content-order', [auth], putContentOrderFormation.putContentOrderFormation);
+formationRoutes.put('/edit/:id/contentOrder', [auth], putContentOrderFormation.putContentOrderFormation);
 
 export default formationRoutes;
