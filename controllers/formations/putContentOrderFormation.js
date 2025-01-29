@@ -10,7 +10,7 @@ const putContentOrderFormation = {
       const { content } = req.body; // Nouveau tableau d'ordre des contenus
 
       // Vérification du format du contenu
-      if (!Array.isArray(content) || content.length === 0) {
+      if (!Array.isArray(content)) {
         return res
           .status(400)
           .json({ message: "Le contenu doit être un tableau valide." });
