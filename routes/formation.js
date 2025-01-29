@@ -6,7 +6,6 @@ import postFormationsController from '../controllers/formations/postFormationsCo
 import patchFormationsController from '../controllers/formations/patchFormationsController.js';
 import deleteFormationsController from '../controllers/formations/deleteFormationController.js';
 import postContentFormation from '../controllers/formations/postContentFormation.js';
-import deleteContentFormation from '../controllers/formations/deleteContentFormation.js';
 import putContentFormation from '../controllers/formations/putContentFormation.js';
 import putContentOrderFormation from '../controllers/formations/putContentOrderFormation.js';
 
@@ -44,10 +43,6 @@ formationRoutes.post('/add/:id/content', [auth], postContentFormation.postConten
 //Routes put edit d'un content d'une formation
 
 formationRoutes.put('/edit/:id/content', [auth], putContentFormation.putContentFormation);
-
-//Route delete d'un content d'une formation
-
-formationRoutes.delete('/delete/:id/content', [auth], deleteContentFormation.deleteContent);
 
 //Routes put edit d'un content d'une formation
 
